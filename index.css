@@ -160,31 +160,3 @@ footer {
   flex-wrap: wrap;
 }
 
-#loading-screen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #d9f7d6; /* light green like your theme */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 5000;
-}
-
-#deer {
-  width: 150px;
-  height: auto;
-  animation: deerWalk 4s steps(3) infinite;
-}
-
-@keyframes deerWalk {
-  0% { content: url('images/deer_walk1.png'); }
-  30% { content: url('images/deer_walk2.png'); }
-  50% { content: url('images/deer_graze.png'); }
-  80% { content: url('images/deer_walk3.png'); }
-  100% { content: url('images/deer_walk1.png'); }
-}
-
-
