@@ -1,10 +1,10 @@
 :root {
-  --bg-gradient: linear-gradient(180deg, #d9f7d6, #c7edcc, #b6e3c3);
-  --text-color: #0b3d2e;
-  --accent: #2f9e44;
-  --link-color: #155d27;
-  --muted: #4a7857;
-  --header-bg: rgba(220, 255, 230, 0.95);
+  --bg-gradient: linear-gradient(160deg, #e0f7fa, #a7ffeb, #69f0ae);
+  --text-color: #00695c;
+  --accent: #00bfa5;
+  --muted: #004d40;
+  --link-color: #00796b;
+  --header-bg: rgba(255, 255, 255, 0.85);
 }
 
 body {
@@ -15,148 +15,161 @@ body {
   transition: background 1s ease, color 0.8s ease;
 }
 
-.mode-input { position: absolute; left: -9999px; }
+input[name="season"] { display: none; }
+
+.season-switch {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 3000;
+}
+.season-switch label {
+  cursor: pointer;
+  font-size: 2rem;
+  transition: transform 0.3s, text-shadow 0.3s, color 0.3s;
+}
+.season-switch label:hover {
+  transform: scale(1.3);
+  text-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+
+#spring:checked ~ .season-switch label[for="spring"],
+#summer:checked ~ .season-switch label[for="summer"],
+#autumn:checked ~ .season-switch label[for="autumn"],
+#winter:checked ~ .season-switch label[for="winter"] {
+  transform: scale(1.4);
+  text-shadow: 0 0 10px gold;
+  color: #ff6f00;
+}
+
+.content {
+  transition: 0.5s ease;
+  min-height: 100vh;
+}
+
+
+#spring:checked ~ .content {
+  --bg-gradient: linear-gradient(160deg, #a5d6a7, #66bb6a, #2e7d32);
+  --text-color: #1b5e20;
+  --accent: #1b5e20;
+  --muted: #145a32;
+  --link-color: #0d3d1b;
+  --header-bg: rgba(245, 255, 245, 0.9);
+}
+
+#summer:checked ~ .content {
+  --bg-gradient: linear-gradient(160deg, #fff9c4, #fff176, #ffd600);
+  --text-color: #f57f17;
+  --accent: #ffca28;
+  --muted: #ff8f00;
+  --link-color: #ff6f00;
+  --header-bg: rgba(255, 249, 196, 0.85);
+}
+
+#autumn:checked ~ .content {
+  --bg-gradient: linear-gradient(160deg, #ffe0b2, #ffab91, #ff7043);
+  --text-color: #bf360c;
+  --accent: #ff6d00;
+  --muted: #d84315;
+  --link-color: #e65100;
+  --header-bg: rgba(255, 224, 178, 0.85);
+}
+
+#winter:checked ~ .content {
+  --bg-gradient: linear-gradient(160deg, #e0f2f7, #b3e5fc, #81d4fa);
+  --text-color: #01579b;
+  --accent: #0288d1;
+  --muted: #0277bd;
+  --link-color: #0277bd;
+  --header-bg: rgba(224, 242, 247, 0.85);
+}
 
 header {
   text-align: center;
   background: var(--header-bg);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  padding: 20px 0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  padding: 25px 0;
   position: sticky;
   top: 0;
   z-index: 1000;
 }
-
 header h1 {
   margin: 0;
   color: var(--accent);
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 2.5rem;
+  font-weight: 800;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
 
 .nav-links {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 10px;
+  gap: 15px;
+  margin-top: 12px;
 }
-
 .nav-links a {
   color: var(--link-color);
   text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  padding: 6px 10px;
-  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 8px 16px;
+  border-radius: 10px;
   transition: background 0.3s, color 0.3s, transform 0.2s;
 }
-
 .nav-links a:hover,
 .nav-links a.active {
-  background: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.4);
   color: #fff;
-  transform: scale(1.05);
-}
-
-.mode-switch {
-  position: fixed;
-  top: 80px;
-  right: 25px;
-  display: flex;
-  gap: 10px;
-  z-index: 2000;
-}
-
-.mode-switch label {
-  cursor: pointer;
-  font-size: 1.4rem;
-  transition: transform 0.3s, text-shadow 0.3s;
-}
-
-.mode-switch label:hover {
-  transform: scale(1.2);
-}
-
-#day:checked ~ .mode-switch label[for="day"] {
-  transform: scale(1.3);
-  text-shadow: 0 0 8px gold;
-}
-
-#night:checked ~ .mode-switch label[for="night"] {
-  transform: scale(1.3);
-  text-shadow: 0 0 10px lightgreen;
-}
-
-#night:checked ~ main,
-#night:checked ~ footer {
-  --bg-gradient: linear-gradient(180deg, #0b3d2e, #063622, #012f1d);
-  --text-color: #d8f3dc;
-  --accent: #74c69d;
-  --link-color: #b7efc5;
-  --muted: #95d5b2;
-  --header-bg: rgba(5, 51, 32, 0.95);
-  background: var(--bg-gradient);
-  color: var(--text-color);
-}
-
-#night:checked ~ header {
-  background: var(--header-bg);
+  transform: scale(1.1);
 }
 
 main {
-  padding: 30px 20px 60px;
+  padding: 40px 20px 70px;
   text-align: center;
   background: var(--bg-gradient);
   color: var(--text-color);
   transition: background 1s ease, color 0.8s ease;
 }
 
-h2 {
-  color: var(--accent);
-  margin-top: 10px;
-}
+h2 { color: var(--accent); margin-top: 15px; font-size: 2.2rem; }
+h3 { color: var(--accent); font-size: 1.5rem; margin-top: 25px; }
 
 p {
   max-width: 850px;
-  margin: 10px auto;
-  line-height: 1.7;
-  font-size: 1rem;
+  margin: 15px auto;
+  line-height: 1.8;
+  font-size: 1.1rem;
 }
 
 .hero-img {
-  width: 80%;
-  max-width: 600px;
-  margin: 15px auto;
+  width: 90%;
+  max-width: 650px;
+  height: auto;
+  border-radius: 16px;
+  margin: 25px auto;
   display: block;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
-
 .hero-img:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
 }
-
 footer {
   text-align: center;
   color: var(--muted);
-  padding: 20px;
-  font-size: 0.9rem;
-  background: rgba(255,255,255,0.1);
-}
-
+  padding: 25px;
+  font-size: 1rem;
+  background: rgba(255,255,255,0.15);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+} 
 @media (max-width: 700px) {
-  .nav-links { flex-direction: column; }
-  .mode-switch { top: 65px; right: 15px; }
+  .nav-links { flex-direction: column; gap: 10px; }
+  .season-switch { top: 70px; right: 15px; }
+  h2 { font-size: 1.8rem; }
+  h3 { font-size: 1.3rem; }
 }
-
-.header-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-
